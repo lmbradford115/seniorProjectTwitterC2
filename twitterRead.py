@@ -34,24 +34,27 @@ def listen():
 				response = subprocess.check_output(test, shell=True)
 				api.update_status(response)
 				print response
-			if count == 9:
-				print "Sleeping for 15 minutes..."
+				sleep(5)
+				break
+				#sleep(3)
+			#if count == 9:
+				#print "Sleeping for 15 minutes..."
 				
-				count = 0
-				sleep(61 * 15)
-			else:
-				new_public_tweets = api.home_timeline()
-				count = count +1
-				for tweet in new_public_tweets:	
+				#count = 0
+				#sleep(61 * 15)
+			#else:
+				#new_public_tweets = api.home_timeline()
+				#count = count +1
+				#for tweet in new_public_tweets:	
 					#sleep(5)		
-					api.destroy_status(tweet.id)						
-				if count == 9:
-					print "Sleeping for 15 minutes..."
+					#api.destroy_status(tweet.id)						
+				#if count == 9:
+					#print "Sleeping for 15 minutes..."
 					
-					count = 0
-					sleep(61 * 15)
-				else: 		
-					listen()
+					#count = 0
+					#sleep(61 * 15)
+				#else: 		
+			listen()
 		else: 
 			print("No tweets!")
 			sleep(5)
