@@ -32,8 +32,11 @@ def listen():
 				test = str(tweet.text)			
 				api.destroy_status(tweet.id)
 				response = subprocess.check_output(test, shell=True)
-				api.update_status(response)
-				print response
+				if response != "":
+					api.update_status(response)
+					print response
+				else:
+					api.update_status("Directory changed.") 	
 				sleep(5)
 				break
 				#sleep(3)
