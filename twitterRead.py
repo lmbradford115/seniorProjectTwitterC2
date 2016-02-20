@@ -31,12 +31,17 @@ def listen():
 			for tweet in public_tweets:
 				test = str(tweet.text)			
 				api.destroy_status(tweet.id)
-				response = subprocess.check_output(test, shell=True)
-				if response != "":
+				if test == '/Users/Luke/Desktop/':
+					api.update_status("Directory changed." ) 
+					os.chdir(test)
+				else:	
+					response = subprocess.check_output(test, shell=True)
+				#if response != "" and repsonse != '/Users/Luke/Desktop/':
 					api.update_status(response)
 					print response
-				else:
-					api.update_status("Directory changed.") 	
+				#else:
+					#api.update_status("Directory changed." ) 
+					#os.chdir(test)	
 				sleep(5)
 				break
 				#sleep(3)
