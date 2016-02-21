@@ -1,6 +1,7 @@
 from cryptography.fernet import Fernet
-#key = Fernet.generate_key()
-key = "nCMgwxYNuBL-UfSkYHsP0z6heL4z2zATKC7OaiZuowY="
+#keyGenerator = Fernet.generate_key()
+#print keyGenerator
+key = "MSwMGl8kJZfj5_zLfpfeM9fE9Y-_TqsdHGl38AhnMvk="
 #print "Key "+ key
 f = Fernet(key)
 
@@ -25,5 +26,6 @@ def decode(message):
 #print '\n'
 #print "Decryption: " 
 #decode(mesg)	
+
 
 	

