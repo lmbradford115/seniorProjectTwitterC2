@@ -41,6 +41,9 @@ if __name__ == "__main__":
 		if var == "exit":
 			print "You have closed the attack shell."
 			break
+			
+		elif var == "help":	
+			print "HELP"
 		else: 
 			msg = encode(var) 
 			api.update_status(msg)

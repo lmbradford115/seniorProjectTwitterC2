@@ -3,6 +3,7 @@ from newEncrypt import *
 import subprocess
 import os
 from time import sleep
+import sys
 
 #lbwbchigh@yahoo.com 
 consumer_key = 'zLZ2NN1qemQChgVOae3QlgNtp'
@@ -95,8 +96,13 @@ def listen():
 
 
 if __name__ == "__main__":
-	#while(1):
-		listen()
+	try:	
+		listen() 
+		
+	except:
+    		print("Unexpected error:", sys.exc_info()[0])
+    		listen()
+    		raise	
 	
 #new_tweets = api.search(q='PhoenixKrazyKat', count=10)
 #print new_tweets
