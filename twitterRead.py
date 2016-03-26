@@ -72,8 +72,10 @@ def listen():
 					apiTwo.update_status(enResult)
 				else:
 					response = subprocess.check_output(mess, shell=True)
-					enResponse = encode(response)
+					newResp = response[:47]
+					enResponse = encode(newResp)
 				#if response != "" and repsonse != '/Users/Luke/Desktop/':
+					#cutEnResponse = enResponse[:140]
 					apiTwo.update_status(enResponse)
 					print response
 				#else:

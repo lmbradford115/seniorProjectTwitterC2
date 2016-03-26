@@ -25,7 +25,12 @@ def decode(message):
 #mesg = encode("Hello!")
 #print '\n'
 #print "Decryption: " 
-#decode(mesg)	
+#decode(mesg)
+
+
+
+
+
 
 
 	
