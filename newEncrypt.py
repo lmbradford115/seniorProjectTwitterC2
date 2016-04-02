@@ -22,7 +22,8 @@ def decode(message):
 	return f.decrypt(message)
 	
 #print "Encryption: " 
-#mesg = encode("Hello!")
+#mesg = encode("cd ..")
+#print mesg
 #print '\n'
 #print "Decryption: " 
 #decode(mesg)
