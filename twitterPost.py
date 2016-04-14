@@ -29,16 +29,18 @@ def limit():
 	if (len(value) == 55):
 		almost = value[-3:]
 		remain= almost[:2]
-		print str(remain) + " API calls remaining" 
+		real = (int(remain) -4)
+		print str(real) + " API calls remaining" 
 		if( int(remain) == 4):
-			print "Sleeping for 15 minutes. Maually delete tweets from Twitter pages."
+			print "Sleeping for 15 minutes. Manually delete tweets from Twitter pages."
 			sleep(15*61)
 	else:
 		almost = value[-4:]
 		remain= almost[:3]
-		print str(remain) + " API calls remaining" 
+		real = (int(remain) -4)
+		print str(real) + " API calls remaining" 
 		if( int(remain) == 4):
-			print "Sleeping for 15 minutes. Maually delete tweets from Twitter pages."
+			print "Sleeping for 15 minutes. Manually delete tweets from Twitter pages."
 			sleep(15*61)	
 		
 		
@@ -57,7 +59,7 @@ if __name__ == "__main__":
 				print '\n'
 				
 		if var == "exit":
-			print "You have closed the attack shell. Maually delete tweets from Twitter pages."
+			print "You have closed the attack shell. Manually delete tweets from Twitter pages."
 			break
 			
 		elif var == "help":	

