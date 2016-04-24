@@ -1,37 +1,25 @@
+#Both attacker and enemy computer need this 
+
+#Documentation: https://cryptography.io/en/latest/fernet/
+
+#Symmetric encryption 
 from cryptography.fernet import Fernet
+
+#Call this commented out method below the generate new key
 #keyGenerator = Fernet.generate_key()
 #print keyGenerator
 key = "MSwMGl8kJZfj5_zLfpfeM9fE9Y-_TqsdHGl38AhnMvk="
 #print "Key "+ key
+
 f = Fernet(key)
 
 
 def encode(message):
-	#f = Fernet(key)
 	token = f.encrypt(message)
-	#print token
 	return token
 	
 
 
 def decode(message):
-	#f = Fernet(key)
-	#token = f.decrypt(message)
-	#print token
-	#return token
 	return f.decrypt(message)
-	
-#print "Encryption: " 
-#mesg = encode("cd ..")
-#print mesg
-#print '\n'
-#print "Decryption: " 
-#decode(mesg)
-
-
-
-
-
-
-
 	
