@@ -2,6 +2,11 @@
 
 #Documentation: https://cryptography.io/en/latest/fernet/
 
+#Useful links: 
+#https://cryptography.io
+#http://stackoverflow.com/questions/22073516/failed-to-install-python-cryptography-package-with-pip-and-setup-py
+
+
 #Symmetric encryption 
 from cryptography.fernet import Fernet
 
